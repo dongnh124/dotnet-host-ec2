@@ -1,0 +1,25 @@
+sudo su
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo nano /etc/fstab
+/swapfile swap swap defaults 0 0
+_________________________________________________________________
+yum install git docker
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+sudo yum install aspnetcore-runtime-7.0
+sudo yum install dotnet-sdk-7.0
+dotnet tool install --global x
+. /etc/profile.d/dotnet-cli-tools-bin-path.sh
+dotnet sdk check
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose version
+_________________________________________________________________
+mkdir repos
+cd repos
+https://github.com/dongnh124/dotnet-host-ec2.git
+cd dotnet-host-ec2/
+dotnet publish -c Release --self-contained
+docker-compose up -d
